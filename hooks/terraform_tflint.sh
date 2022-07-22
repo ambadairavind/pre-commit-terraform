@@ -31,6 +31,8 @@ function main {
     return ${exit_code}
   }
 
+  echo "$ARGS"
+  echo "$HOOK_ID"
   echo "${FILES[@]}"
 
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
