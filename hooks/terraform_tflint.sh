@@ -30,6 +30,9 @@ function main {
     echo "${TFLINT_INIT}"
     return ${exit_code}
   }
+
+  echo "${FILES[@]}"
+
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
   common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
 }
