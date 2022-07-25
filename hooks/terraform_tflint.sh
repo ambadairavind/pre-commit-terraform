@@ -35,7 +35,7 @@ function main {
   # common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
 
   # get excluded files from .pre-commit-hooks.yaml file
-  local -r hook_config_block=$(sed -n "/^- id: $hook_id$/,/^$/p" ".pre-commit-hooks.yaml")
+  local -r hook_config_block=$(sed -n "/^- id: $hook_id$/,/^$/p" "$PWD/.pre-commit-hooks.yaml")
   local -r excluded_files=$(awk '$1 == "exclude:" {print $2; exit}' <<< "$hook_config_block")
 
   echo "$root_config_dir"
