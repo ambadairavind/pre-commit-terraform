@@ -38,10 +38,8 @@ function main {
   local -r hook_config_block=$(sed -n "/^- id: $hook_id$/,/^$/p" "$PWD/.pre-commit-hooks.yaml")
   local -r excluded_files=$(awk '$1 == "exclude:" {print $2; exit}' <<< "$hook_config_block")
 
-  FILES=`echo "${FILES[@]}" | egrep -v "$excluded_files"`
+  echo "${FILES[@]}" 
 
-  echo "$FILES"
-  
   for FILE in "${FILES[@]}"; do
     tflint "$ARGS" "$FILE"
   done
