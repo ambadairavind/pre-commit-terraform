@@ -34,7 +34,7 @@ function main {
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
   # common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
 
-  tflint "$ARGS" "$FILE"
+  tflint "$ARGS" "${FILES[@]}"
 }
 
 #######################################################################
