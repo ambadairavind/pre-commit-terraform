@@ -34,11 +34,14 @@ function main {
   echo "$ARGS"
   echo "$HOOK_ID"
   echo "${FILES[@]}"
+  echo "$PWD"
 
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
   # common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
 
-  tflint "$ARGS" "${FILES[@]}"
+  for FILE in "${FILES[@]}"; do
+    tflint "$ARGS" "$FILE"
+  done
 }
 
 #######################################################################
