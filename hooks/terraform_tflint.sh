@@ -31,13 +31,17 @@ function main {
     return ${exit_code}
   }
 
-  echo "$ARGS"
-  echo "$HOOK_ID"
-  echo "${FILES[@]}"
-  echo "$PWD"
-
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
   # common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
+
+  local -r root_config_dir="$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)")"
+  # get included and excluded files from .pre-commit-hooks.yaml file
+  local -r hook_config_block=$(sed -n "/^- id: $hook_id$/,/^$/p" "$root_config_dir/.pre-commit-hooks.yaml")
+  local -r excluded_files=$(awk '$1 == "exclude:" {print $2; exit}' <<< "$hook_config_block")
+
+  echo "$root_config_dir"
+  echo "$hook_config_block"
+  echo "$excluded_files"  
 
   for FILE in "${FILES[@]}"; do
     tflint "$ARGS" "$FILE"
