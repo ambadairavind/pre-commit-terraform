@@ -41,6 +41,7 @@ function main {
   echo "${FILES[@]}" 
 
   for FILE in "${FILES[@]}"; do
+    echo "$FILE"
     tflint "$ARGS" "$FILE"
   done
 }
