@@ -34,16 +34,7 @@ function main {
   # shellcheck disable=SC2128 # It's the simplest syntax for that case
   # common::per_dir_hook "$ARGS" "$HOOK_ID" "${FILES[@]}"
 
-  # get excluded files from .pre-commit-hooks.yaml file
-  local -r hook_config_block=$(sed -n "/^- id: $hook_id$/,/^$/p" "$PWD/.pre-commit-hooks.yaml")
-  local -r excluded_files=$(awk '$1 == "exclude:" {print $2; exit}' <<< "$hook_config_block")
-
-  echo "${FILES[@]}" 
-
-  for FILE in "${FILES[@]}"; do
-    echo "$FILE"
-    tflint "$ARGS" "$FILE"
-  done
+  tflint "$ARGS" "$FILE"
 }
 
 #######################################################################
